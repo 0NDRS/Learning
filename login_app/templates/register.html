@@ -4,18 +4,11 @@
         <title>Register</title>
         <link rel="stylesheet" type="text/css"
             href="{{ url_for('static', filename='style.css') }}">
+
     </head>
     <body>
         <h2>Register</h2>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul>
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
+        <p id="error-message"></p>
         <form method="POST">
             <label for="username">Username:</label><br>
             <input type="text" id="username" name="username"
@@ -30,5 +23,8 @@
         </form>
         <p>Already have an account? <a href="{{ url_for('login') }}">Login
                 here</a></p>
+
+        <script
+            src="{{ url_for('static', filename='app.js') }}"></script>
     </body>
 </html>

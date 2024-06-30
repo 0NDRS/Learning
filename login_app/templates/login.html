@@ -4,26 +4,24 @@
         <title>Login</title>
         <link rel="stylesheet" type="text/css"
             href="{{ url_for('static', filename='style.css') }}">
+
     </head>
     <body>
         <h2>Login</h2>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul>
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
+        <p id="error-message"></p>
         <form method="POST">
             <label for="username">Username:</label><br>
-            <input type="text" id="username" name="username"><br>
+            <input type="text" id="username" name="username"
+                value="{{ request.form.get('username', '') }}"><br>
             <label for="password">Password:</label><br>
-            <input type="password" id="password" name="password"><br><br>
+            <input type="password" id="password" name="password"
+                value="{{ request.form.get('password', '') }}"><br>
             <input type="submit" value="Login">
         </form>
         <p>Don't have an account? <a href="{{ url_for('register') }}">Register
                 here</a></p>
+
+        <script
+            src="{{ url_for('static', filename='app.js') }}"></script>
     </body>
 </html>

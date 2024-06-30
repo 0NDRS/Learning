@@ -23,21 +23,10 @@ def register():
         password = request.form.get('password')
         password_confirm = request.form.get('password-confirm')
 
-        # Check if any form field is missing
-        if not username or not password or not password_confirm:
-            flash('All fields are required.')
-            return render_template('register.html', username=username, password=password, password_confirm=password_confirm)
-
-        # Check if passwords match
-        if password != password_confirm:
-            flash('Passwords do not match. Please try again.')
-            return render_template('register.html', username=username, password=password, password_confirm=password_confirm)
-
-        # Check if the username already exists
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
-            flash('Username already exists. Please choose a different one.')
-            return render_template('register.html', username=username, password=password, password_confirm=password_confirm)
+            error_message = 'Username already exists. Please choose a different one.'
+            return render_template('register.html', error_message=error_message, username=username)
         
         hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
         new_user = User(username=username, password=hashed_password)
@@ -47,7 +36,7 @@ def register():
 
         return redirect(url_for('login'))
     return render_template('register.html')
-    
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -59,8 +48,8 @@ def login():
             session['user_id'] = user.id
             return redirect(url_for('home'))
         else:
-            flash('Login failed. Check your username and password.')
-            return redirect(url_for('login'))
+            error_message = 'Login failed. Check your username and password.'
+            return render_template('login.html', error_message=error_message, username=username)
 
     return render_template('login.html')
 

@@ -7,7 +7,7 @@ body {
     flex-direction: column;
     background-color: #181818;
 }
-ul {
+#error-message {
     position: absolute;
     list-style-type: none;
     margin: 0;
@@ -18,7 +18,32 @@ ul {
     color: white;
     border-radius: 50px;
     bottom: 20vh;
+    opacity: 0;
 }
+@keyframes fadeInUp {
+    0% {
+        bottom: 0;
+        opacity: 0;
+    }
+    100% {
+        bottom: 20vh;
+        opacity: 1;
+    }
+}
+
+#error-message.glow {
+    animation: glow 0.5s ease-in-out alternate infinite;
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 10px #e03535;
+    }
+    to {
+        box-shadow: 0 0 20px #e03535;
+    }
+}
+
 
 h2 {
     color: #eeeeee;
