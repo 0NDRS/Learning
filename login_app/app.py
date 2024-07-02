@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+import re
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
@@ -19,38 +20,54 @@ def index():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        password_confirm = request.form.get('password-confirm')
+        data = request.get_json()
+        username = data.get('username')
+        password = data.get('password')
+        password_confirm = data.get('confirmPassword')
+
+        # Step-by-step server-side validation
+        if not username or not password or not password_confirm:
+            return jsonify({'error': 'All fields are required'}), 400
+
+        password_regex = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#@$!%*?&])[A-Za-z\d#@$!%*?&]{8,}$')
+        if not password_regex.match(password):
+            return jsonify({'error': 'Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.'}), 400
+
+        if password != password_confirm:
+            return jsonify({'error': 'Passwords do not match'}), 400
 
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
-            error_message = 'Username already exists. Please choose a different one.'
-            return render_template('register.html', error_message=error_message, username=username)
-        
+            return jsonify({'error': 'Username already exists'}), 400
+
         hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
         new_user = User(username=username, password=hashed_password)
-        
+
         db.session.add(new_user)
         db.session.commit()
 
-        return redirect(url_for('login'))
+        return jsonify({'success': 'Registration successful'}), 200
+    
     return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+        data = request.get_json()
+        username = data.get('username')
+        password = data.get('password')
         user = User.query.filter_by(username=username).first()
-        
+
+        # Step-by-step server-side validation
+        if not username or not password:
+            return jsonify({'error': 'All fields are required'}), 400
+
         if user and check_password_hash(user.password, password):
             session['user_id'] = user.id
-            return redirect(url_for('home'))
+            return jsonify({'success': 'Login successful'}), 200
         else:
-            error_message = 'Login failed. Check your username and password.'
-            return render_template('login.html', error_message=error_message, username=username)
-
+            return jsonify({'error': 'Invalid username or password'}), 400
+    
     return render_template('login.html')
 
 @app.route('/home')
