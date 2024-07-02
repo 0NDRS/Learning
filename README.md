@@ -1,21 +1,21 @@
-Welcome to My Learning Journey Repository!
-This repository is a comprehensive collection of everything I've learned, am currently learning, and plan to learn in the fields of web development, AI, mobile app development, and backend systems. Here, you'll find a diverse array of projects that showcase my progress and the skills I've acquired along the way.
+# Welcome to My Learning Journey Repository!
+### This repository is a comprehensive collection of everything I've learned, am currently learning, and plan to learn in the fields of web development, AI, mobile app development, and backend systems. Here, you'll find a diverse array of projects that showcase my progress and the skills I've acquired along the way.
 
-Table of Contents
-About
-Projects
-Eva-Smart AI Home Assistant
-Web Development
-Mobile App Development
-Python Backend Systems
-Learning Timeline
-Contact
-About
-This repository serves as a portfolio of my learning journey. It includes projects that demonstrate my capabilities in different areas of technology. Each project is documented with the necessary details to help you understand its purpose, implementation, and the technologies used.
+# Table of Contents
+## About
+## Projects
+## Eva-Smart AI Home Assistant
+## Web Development
+## Mobile App Development
+## Python Backend Systems
+## Learning Timeline
+## Contact
+## About
+### This repository serves as a portfolio of my learning journey. It includes projects that demonstrate my capabilities in different areas of technology. Each project is documented with the necessary details to help you understand its purpose, implementation, and the technologies used.
 
-Projects
-Eva-Smart AI Home Assistant
-Eva-Smart is an AI-powered home assistant designed to help users manage their smart home devices efficiently. This project includes:
+## Projects
+### Eva-Smart AI Home Assistant
+#### Eva-Smart is an AI-powered home assistant designed to help users manage their smart home devices efficiently. This project includes:
 
 Voice Recognition: Using NLP to understand and execute voice commands.
 Device Integration: Seamless integration with various smart home devices.
@@ -53,7 +53,6 @@ Advanced Web Development: Next.js, GraphQL, JAMstack
 Contact
 I'm always open to feedback, collaboration, and new opportunities. Feel free to reach out to me via:
 
-Email: your-email@example.com
-LinkedIn: Your LinkedIn Profile
+Email: ondrazab2006@gmail.com
 GitHub: Your GitHub Profile
 Thank you for visiting my repository! I hope you find my projects and learning journey inspiring and informative.
